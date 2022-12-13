@@ -1,8 +1,10 @@
-package com.pharmaco.pharaco101.controller;
+package com.pharmaco.controller;
 
-import com.pharmaco.pharaco101.entities.Laboratoire;
-import com.pharmaco.pharaco101.services.LaboratoireServices;
+import com.pharmaco.dto.LaboratoireDTO;
+import com.pharmaco.entities.Laboratoire;
+import com.pharmaco.services.LaboratoireServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,24 +24,38 @@ public class LaboController {
         return laboratoireServices.findAllLaboratoire();
     }
 
-    @PostMapping("/add")
-    public Laboratoire addLaboratoire(Laboratoire laboratoire){
-        return laboratoireServices.saveLaboratoire(laboratoire);
+    @PostMapping(value = "/add",
+            consumes = "application/json")
+    public Laboratoire addLaboratoire(@RequestBody @Validated LaboratoireDTO laboratoire){
+        Laboratoire persistantLaboratoire = new Laboratoire();
+        persistantLaboratoire.setLibelleLabo(laboratoire.getLibLabo());
+
+
+         laboratoireServices.saveLaboratoire(persistantLaboratoire);
+        return persistantLaboratoire;
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public void deleteLaboratoire(Long id){
         laboratoireServices.deleteLaboratoire(id);
     }
 
-    @PostMapping("/find")
-    public Laboratoire findLaboratoireById(Long id){
+    @GetMapping("/find/{id}")
+    public Laboratoire findLaboratoireById( @PathVariable Long id){
         return laboratoireServices.findLaboratoireById(id);
     }
 
-    @PutMapping("/update")
-    public Laboratoire updateLaboratoire(Laboratoire laboratoire){
-        return laboratoireServices.saveLaboratoire(laboratoire);
+    @PutMapping("/update/{id}")
+    public Laboratoire updateLaboratoire(@PathVariable Long id, @RequestBody LaboratoireDTO laboratoire){
+        Laboratoire persistantLaboratoire = new Laboratoire();
+        persistantLaboratoire.setLibelleLabo(laboratoire.getLibLabo());
+         laboratoireServices.saveLaboratoire(persistantLaboratoire);
+        return persistantLaboratoire;
+    }
+
+    @GetMapping("/findByName/{nomLaboratoire}")
+    public Iterable<Laboratoire> findLaboratoireByNomLaboratoire(@PathVariable String nomLaboratoire){
+        return laboratoireServices.findLaboratoireByNomLaboratoire(nomLaboratoire);
     }
 
 }

@@ -1,47 +1,33 @@
-package com.pharmaco.pojos;
+package com.pharmaco.dto;
 
+import com.pharmaco.entities.Fournisseur;
+import com.pharmaco.entities.PharmaceuticProduct;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
 
 import java.util.Date;
 import java.util.List;
 
 
-@Builder
 @RequiredArgsConstructor
 @Getter
 @Setter
-@AllArgsConstructor
-public class UtilisateurModel  {
-
-    private Long id;
-
-
-    private String nomUtil;
-
-
-    private String prenomUtil;
-
-
-    private String adresseUtil;
-
-
-    private String emailUtil;
-
-
-    private int codePostalUtil;
-
-    private String telUtil;
-
-    private String passwordUtil;
+@Data
+public class UtilisateurDTO  {
+        private Long id;
+        private String nomUtil;
+        private String prenomUtil;
+        private String adresseUtil;
+        private String emailUtil;
+        private int codePostalUtil;
+        private int telUtil;
+        private String passwordUtil;
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
+        private Date dateNaisaanceUtil;
+        private List<PharmaceuticProduct> pharmaceuticProductsList;
+        private List<Fournisseur> fournisseurList;
+        private int priveldege;
 
 
-
-    private Date dateNaisaanceUtil;
-
-
-    private List<PharmaceuticProductModel> pharmaceuticProductsListModel;
-
-
-    private List<FournisseurModel> fournisseurModelList;
-    private int priveldege;
-}
+    }

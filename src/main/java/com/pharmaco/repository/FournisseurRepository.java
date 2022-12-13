@@ -1,7 +1,7 @@
-package com.pharmaco.demo1.repository;
+package com.pharmaco.repository;
 
 
-import com.pharmaco.pharaco101.entities.Fournisseur;
+import com.pharmaco.entities.Fournisseur;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,5 +16,5 @@ public interface FournisseurRepository extends JpaRepository<Fournisseur, Long> 
     List<Fournisseur> findFournisseurByTelFournisseur(int telFour);
 
     @Query(value = "select * from fournisseur where id_utilisateur =:idU",nativeQuery = true)
-    public List<Fournisseur> findEnseignantByUtilisateur(@Param(value = "idU") Long id);
+    public List<Fournisseur> findFournisseurByUtilisateur(@Param(value = "idU") Long id);
 }

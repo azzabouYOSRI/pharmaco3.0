@@ -1,5 +1,6 @@
-package com.pharmaco.demo1.entities;
+package com.pharmaco.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.hibernate.Hibernate;
@@ -7,6 +8,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -19,7 +21,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @Builder
 @Table(name = "facture_achat")
-public class FactureAchat  implements java.io.Serializable {
+public class FactureAchat  implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_fact_achat", nullable = false)
@@ -37,21 +39,20 @@ public class FactureAchat  implements java.io.Serializable {
     @Column(name = "tva", nullable = false)
     private double tva;
 
-    @ManyToOne
-    @JoinColumn(name = "fournisseur_2_id_fournisseur")
-    private Fournisseur fournisseur2;
-
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_fournisseur", referencedColumnName = "id_fournisseur")
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @ToString.Exclude
     private Fournisseur fournisseur;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToMany
     @JoinTable(
             name = "facture_achat_x_produitpharma",
             joinColumns = @JoinColumn(name = "id_prd"),
             inverseJoinColumns = @JoinColumn(name = "id_fact_achat"))
+    @ToString.Exclude
     private List<PharmaceuticProduct> pharmaceuticProductsList;
 
 

@@ -1,5 +1,6 @@
-package com.pharmaco.pojos;
+package com.pharmaco.dto;
 
+import com.pharmaco.entities.PharmaceuticProduct;
 import lombok.*;
 import org.hibernate.Hibernate;
 
@@ -12,20 +13,20 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Builder
-public class LaboratoireModel  {
+public class LaboratoireDTO {
     private Long idLabo;
 
     private String libLabo;
 
 
-    private List<PharmaceuticProductModel> pharmaceuticProductsListModel;
+    private List<PharmaceuticProduct> pharmaceuticProductsListModel;
 
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        LaboratoireModel that = (LaboratoireModel) o;
+        LaboratoireDTO that = (LaboratoireDTO) o;
         return idLabo != null && Objects.equals(idLabo, that.idLabo);
     }
 

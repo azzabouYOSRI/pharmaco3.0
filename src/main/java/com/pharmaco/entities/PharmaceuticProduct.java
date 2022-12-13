@@ -1,13 +1,18 @@
 
-package com.pharmaco.demo1.entities;
+package com.pharmaco.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -22,11 +27,15 @@ import java.util.Objects;
 @AllArgsConstructor
 @Builder
 @Table(name = "pharmaceutic_product")
-public class PharmaceuticProduct  implements java.io.Serializable {
-//    @ManyToMany(mappedBy = "pharmaceuticProductsListModel")
-//    @ToString.Exclude
-//   private List<UtilisateurModel> utilisateurList;
+public class PharmaceuticProduct implements Serializable {
 
+
+ @JsonIgnore
+ @ManyToMany(mappedBy = "pharmaceuticProductsList")
+  @ToString.Exclude
+   private List<Utilisateur> utilisateurList;
+
+    @JsonIgnore
     @ManyToMany(mappedBy = "pharmaceuticProductsList")
     @ToString.Exclude
     private List<FactureAchat> factureAchatList;
@@ -45,12 +54,13 @@ public class PharmaceuticProduct  implements java.io.Serializable {
     @Column(name = "description_prd", nullable = false)
     private String descriptionPrd;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "date_ajout_prd", nullable = false)
-    private String dateAjoutPrd;
+    private Date dateAjoutPrd;
 
     @Column(name = "prix_livraison", nullable = false)
     private double prixLivraison;
-
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
@@ -59,8 +69,9 @@ public class PharmaceuticProduct  implements java.io.Serializable {
     @ToString.Exclude
     private Famille famille;
 
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @ManyToOne(fetch = FetchType.LAZY,optional = false, cascade = CascadeType.ALL, targetEntity = CommandeProd.class)
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = CommandeProd.class)
     @JoinColumn(name = "id_commande_prod", referencedColumnName = "id_commande_prod")
     @OnDelete(action = OnDeleteAction.CASCADE)
     @ToString.Exclude

@@ -1,9 +1,9 @@
-package com.pharmaco.demo1.entities;
+package com.pharmaco.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
+
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
 
@@ -45,18 +45,19 @@ public class Utilisateur implements java.io.Serializable {
     private int codePostalUtil;
 
     @Column(name = "tel_util",nullable = false)
-    private String telUtil;
+    private int telUtil;
 
     @Column(name = "password_util",nullable = false)
     private String passwordUtil;
 
 
-    @Column(name = "datenaisaance_util", nullable = false)
+    @Column(name = "datenaisaance_util", nullable = true)
     @JsonFormat(pattern = "yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
     private Date dateNaisaanceUtil;
 
-    @NotFound(action = NotFoundAction.IGNORE)
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "pp_x_user",
@@ -66,7 +67,8 @@ public class Utilisateur implements java.io.Serializable {
     @Nullable
     private List<PharmaceuticProduct> pharmaceuticProductsList;
 
-    @NotFound(action = NotFoundAction.IGNORE)
+    @JsonIgnore
+
     @OneToMany (mappedBy="utilisateur", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
     @ToString.Exclude
     private List<Fournisseur> fournisseurList;
@@ -74,4 +76,10 @@ public class Utilisateur implements java.io.Serializable {
 
     @Column(name = "priveledge",nullable = false)
     private int priveldege;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "date_naissance", nullable = false)
+    private Date dateNaissance;
+
 }

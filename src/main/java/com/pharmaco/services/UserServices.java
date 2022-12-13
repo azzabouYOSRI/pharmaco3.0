@@ -1,17 +1,16 @@
-package com.pharmaco.pharaco101.services;
+package com.pharmaco.services;
 
 
-import com.pharmaco.pharaco101.entities.Utilisateur;
-import com.pharmaco.pharaco101.repository.UtilisateurRepository;
+
+import com.pharmaco.entities.PharmaceuticProduct;
+import com.pharmaco.entities.Utilisateur;
+import com.pharmaco.repository.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-
+import java.util.*;
+import java.util.stream.Collectors;
 @Service
 public class UserServices {
 
@@ -35,7 +34,7 @@ public class UserServices {
 
     @Transactional
     public Utilisateur findUserById(Long id) {
-        Optional<Utilisateur> optionalUtilisateur = Optional.ofNullable(utilisateurRepository.findUserById(id));
+        Optional<Utilisateur> optionalUtilisateur = utilisateurRepository.findById(id);
         return optionalUtilisateur.orElse(new Utilisateur());
     }
 
@@ -56,7 +55,7 @@ public class UserServices {
     }
 
     @Transactional
-    public List<Utilisateur> findUtilisateurByTelUtil(String tel) {
+    public List<Utilisateur> findUtilisateurByTelUtil(int tel) {
         return utilisateurRepository.findUtilisateurByTelUtil(tel);
     }
 
@@ -90,5 +89,14 @@ public class UserServices {
         return utilisateurRepository.findUtilisateurByEmailUtil(email);
     }
 
+    @Transactional
+    public List<List<PharmaceuticProduct>> findproductbyuser(Long id){
 
+      return         utilisateurRepository
+                    .findAll()
+                    .stream()
+              .filter(x->Objects.equals(x.getId(), id))
+                    .map(Utilisateur::getPharmaceuticProductsList)
+                    .collect(Collectors.toList());
+    }
 }

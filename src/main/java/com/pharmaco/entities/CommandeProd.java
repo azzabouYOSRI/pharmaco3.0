@@ -1,8 +1,10 @@
-package com.pharmaco.demo1.entities;
+package com.pharmaco.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -30,12 +32,16 @@ public class CommandeProd implements java.io.Serializable {
     private Date dateFourni;
 
     @JsonIgnore
-    @OneToMany (mappedBy="commandeProd", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+    @OneToMany (mappedBy="commandeProd", fetch=FetchType.LAZY)
     @ToString.Exclude
     private List<PharmaceuticProduct> pharmaceuticProductsList;
 
+
+
+
+
     @JsonIgnore
-    @OneToMany(mappedBy = "commandeProd", cascade = CascadeType.ALL)
+    @OneToMany (mappedBy="commandeProd", fetch=FetchType.LAZY)
     @ToString.Exclude
     private List<Fournisseur> fournisseurList;
 

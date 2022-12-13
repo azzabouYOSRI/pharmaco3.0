@@ -1,7 +1,8 @@
-package com.pharmaco.pharaco101.controller;
+package com.pharmaco.controller;
 
-import com.pharmaco.pharaco101.entities.Fournisseur;
-import com.pharmaco.pharaco101.services.FournisseurServices;
+import com.pharmaco.dto.FournisseurDTO;
+import com.pharmaco.entities.Fournisseur;
+import com.pharmaco.services.FournisseurServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +20,16 @@ public class FournisseurController {
     }
 
     @PostMapping(value = "/addFournisseur", consumes = "application/json")
-    public void addFournisseur(@Validated @RequestBody Fournisseur fournisseur) {
-        fournisseurServices.addNewFournisseur(fournisseur);
+    public Fournisseur addFournisseur(@Validated @RequestBody FournisseurDTO fournisseur) {
+        Fournisseur persistantFournisseur = new Fournisseur();
+        persistantFournisseur.setNomFournisseur(fournisseur.getNomFournisseur());
+        persistantFournisseur.setAdresseFournisseur(fournisseur.getAdresseFournisseur());
+        persistantFournisseur.setTelFournisseur(fournisseur.getTelFournisseur());
+        persistantFournisseur.setEmailFournisseur(fournisseur.getEmailFournisseur());
+        persistantFournisseur.setUtilisateur(fournisseur.getUtilisateur());
+
+        fournisseurServices.addNewFournisseur(persistantFournisseur);
+        return  persistantFournisseur;
     }
 
     @GetMapping("/getFournisseur/{id}")
@@ -29,8 +38,9 @@ public class FournisseurController {
     }
 
     @DeleteMapping("/deleteFournisseur/{id}")
-    public void deleteFournisseur(@PathVariable Long id) {
+    public String deleteFournisseur(@PathVariable Long id) {
         fournisseurServices.deleteFournisseur(id);
+        return "Fournisseur deleted";
     }
 
     @GetMapping("/getFournisseurByNom/{nom}")
@@ -60,16 +70,16 @@ public class FournisseurController {
         return fournisseurServices.findFournisseurByUtilisateur(idUtilisateur);
     }
 
-    @PutMapping("/updateFournisseur/{id}/1")
-    public Fournisseur updateFournisseurNom(@PathVariable Long id, @RequestBody Fournisseur fournisseur) {
+    @PutMapping("/updateFournisseur/{id}/nom")
+    public Fournisseur updateFournisseurNom(@PathVariable Long id, @RequestBody FournisseurDTO fournisseur) {
 
     Fournisseur fournisseurExist = fournisseurServices.findFournisseurById(id);
     fournisseurExist.setNomFournisseur(fournisseur.getNomFournisseur());
     fournisseurServices.addNewFournisseur(fournisseurExist);
     return fournisseurExist;
     }
-    @PutMapping("/updateFournisseur/{id}/1")
-    public Fournisseur updateFournisseurTelephone(@PathVariable Long id, @RequestBody Fournisseur fournisseur) {
+    @PutMapping("/updateFournisseur/{id}/telephone")
+    public Fournisseur updateFournisseurTelephone(@PathVariable Long id, @RequestBody FournisseurDTO fournisseur) {
 
         Fournisseur fournisseurExist = fournisseurServices.findFournisseurById(id);
         fournisseurExist.setTelFournisseur(fournisseur.getTelFournisseur());
@@ -77,8 +87,8 @@ public class FournisseurController {
         return fournisseurExist;
     }
 
-    @PutMapping("/updateFournisseur/{id}/3")
-    public Fournisseur updateFournisseurAdresse(@PathVariable Long id, @RequestBody Fournisseur fournisseur) {
+    @PutMapping("/updateFournisseur/{id}/adresse")
+    public Fournisseur updateFournisseurAdresse(@PathVariable Long id, @RequestBody FournisseurDTO fournisseur) {
 
         Fournisseur fournisseurExist = fournisseurServices.findFournisseurById(id);
         fournisseurExist.setAdresseFournisseur(fournisseur.getAdresseFournisseur());
@@ -86,13 +96,21 @@ public class FournisseurController {
         return fournisseurExist;
     }
 
-    @PutMapping("/updateFournisseur/{id}/4")
-    public Fournisseur updateFournisseurEmail(@PathVariable Long id, @RequestBody Fournisseur fournisseur) {
+    @PutMapping("/updateFournisseur/{id}/email")
+    public Fournisseur updateFournisseurEmail(@PathVariable Long id, @RequestBody FournisseurDTO fournisseur) {
 
         Fournisseur fournisseurExist = fournisseurServices.findFournisseurById(id);
         fournisseurExist.setEmailFournisseur(fournisseur.getEmailFournisseur());
         fournisseurServices.addNewFournisseur(fournisseurExist);
         return fournisseurExist;
+    }
+
+
+
+
+    @GetMapping("/all")
+    public Iterable<Fournisseur> getAllFournisseur() {
+        return fournisseurServices.findAllFournisseur();
     }
 
 }

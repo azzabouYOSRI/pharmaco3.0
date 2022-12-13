@@ -1,8 +1,13 @@
 
-package com.pharmaco.pojos;
+package com.pharmaco.dto;
 
+import com.pharmaco.entities.CommandeProd;
+import com.pharmaco.entities.FactureAchat;
+import com.pharmaco.entities.Famille;
+import com.pharmaco.entities.Laboratoire;
 import lombok.*;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,13 +19,11 @@ import java.util.List;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PharmaceuticProductModel  {
-//    @ManyToMany(mappedBy = "pharmaceuticProductsListModel")
-//    @ToString.Exclude
-//   private List<UtilisateurModel> utilisateurList;
+@Data
+public class PharmaceuticProductDTO {
 
 
-    private List<FactureAchatModel> factureAchatModelList;
+    private List<FactureAchat> factureAchatDTOList;
 
 
 
@@ -30,17 +33,17 @@ public class PharmaceuticProductModel  {
 
     private String descriptionPrd;
 
-    private String dateAjoutPrd;
+    private Date dateAjoutPrd;
 
     private double prixLivraison;
 
 
 
-    private FamilleModel familleModel;
+    private Famille famille;
 
 
-    private CommandeProdModel commandeProd;
+    private  CommandeProd commandeProd;
 
-    private LaboratoireModel laboratoireModel;
+    private Laboratoire laboratoire;
 
 }

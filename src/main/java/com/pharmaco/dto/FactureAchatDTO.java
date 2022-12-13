@@ -1,5 +1,7 @@
-package com.pharmaco.pojos;
+package com.pharmaco.dto;
 
+import com.pharmaco.entities.Fournisseur;
+import com.pharmaco.entities.PharmaceuticProduct;
 import lombok.*;
 import org.hibernate.Hibernate;
 
@@ -10,10 +12,8 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
 @AllArgsConstructor
-@Builder
-public class FactureAchatModel  {
+public class FactureAchatDTO {
 
     private Long idFactAchat;
 
@@ -25,20 +25,17 @@ public class FactureAchatModel  {
 
     private double tva;
 
-    private FournisseurModel fournisseurModel2;
+    private Fournisseur fournisseur;
 
 
-    private FournisseurModel fournisseurModel;
-
-
-    private List<PharmaceuticProductModel> pharmaceuticProductsListModel;
+    private List<PharmaceuticProduct> pharmaceuticProductsList;
 
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        FactureAchatModel that = (FactureAchatModel) o;
+        FactureAchatDTO that = (FactureAchatDTO) o;
         return idFactAchat != null && Objects.equals(idFactAchat, that.idFactAchat);
     }
 

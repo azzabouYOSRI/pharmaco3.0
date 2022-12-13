@@ -1,11 +1,12 @@
-package com.pharmaco.pharaco101.services;
+package com.pharmaco.services;
 
-import com.pharmaco.pharaco101.entities.Laboratoire;
-import com.pharmaco.pharaco101.repository.LaboratoireRepository;
+import com.pharmaco.entities.Laboratoire;
+import com.pharmaco.repository.LaboratoireRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,9 +27,8 @@ public class LaboratoireServices
     }
 
     @Transactional
-    public Laboratoire saveLaboratoire(Laboratoire laboratoire) {
+    public void saveLaboratoire(Laboratoire laboratoire) {
         laboratoireRepository.save(laboratoire);
-        return laboratoire;
     }
 
     @Transactional
@@ -37,7 +37,12 @@ public class LaboratoireServices
         return optionalFournisseur.orElseGet(Laboratoire::new);    }
 
     @Transactional
-    public Iterable<Laboratoire> findAllLaboratoire() {
+    public List<Laboratoire> findAllLaboratoire() {
         return laboratoireRepository.findAll();
+    }
+
+    @Transactional
+    public List<Laboratoire> findLaboratoireByNomLaboratoire(String nomLaboratoire) {
+        return laboratoireRepository.findByLibelleLabo(nomLaboratoire);
     }
 }

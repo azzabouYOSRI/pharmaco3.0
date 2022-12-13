@@ -1,4 +1,4 @@
-package com.pharmaco.demo1.entities;
+package com.pharmaco.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;

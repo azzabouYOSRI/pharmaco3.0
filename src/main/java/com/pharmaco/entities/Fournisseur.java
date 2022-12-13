@@ -1,4 +1,4 @@
-package com.pharmaco.demo1.entities;
+package com.pharmaco.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -44,15 +44,11 @@ public class Fournisseur  implements java.io.Serializable {
     private List<FactureAchat> factureAchatList;
 
 
-
-
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @ManyToOne(fetch = FetchType.LAZY,optional = true)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_commande_prod", referencedColumnName = "id_commande_prod")
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @ToString.Exclude
     private CommandeProd commandeProd;
-
-//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 
     @ManyToOne(fetch = FetchType.EAGER,optional = false)
     @JoinColumn(name = "id_utilisateur", referencedColumnName = "id_utilisateur")

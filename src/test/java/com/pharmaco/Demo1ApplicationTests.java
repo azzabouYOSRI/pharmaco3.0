@@ -1,4 +1,4 @@
-package com.pharmaco.demo1;
+package com.pharmaco;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

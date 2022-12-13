@@ -1,5 +1,8 @@
-package com.pharmaco.pojos;
+package com.pharmaco.dto;
 
+import com.pharmaco.entities.CommandeProd;
+import com.pharmaco.entities.FactureAchat;
+import com.pharmaco.entities.Utilisateur;
 import lombok.*;
 
 import java.util.List;
@@ -10,7 +13,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Builder
-public class FournisseurModel {
+@Data
+public class FournisseurDTO {
 
     private Long idFournisseur;
 
@@ -24,13 +28,13 @@ public class FournisseurModel {
     private int telFournisseur;
 
 
-    private List<FactureAchatModel> factureAchatModelList;
+    private List<FactureAchat> factureAchatList;
 
 
-    private CommandeProdModel commandeProd;
+    private List <CommandeProd> commandeProdList;
 
 
 
-    private UtilisateurModel utilisateurModel;
+    private Utilisateur utilisateur;
 
 }
