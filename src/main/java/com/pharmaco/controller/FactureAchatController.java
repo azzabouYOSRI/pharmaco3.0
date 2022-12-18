@@ -58,15 +58,9 @@ public class FactureAchatController {
     }
 
     @PostMapping("/addFactureAchat")
-    public FactureAchat addFactureAchat(@RequestBody @Validated FactureAchatDTO factureAchat) {
-        FactureAchat persistantFactureAchat = new FactureAchat();
-        persistantFactureAchat.setDateFactAchat(factureAchat.getDateFactAchat());
-        persistantFactureAchat.setTotalTtcFactAchat(factureAchat.getTotalTtcFactAchat());
-        persistantFactureAchat.setTotalHtFactAchat(factureAchat.getTotalHtFactAchat());
-        persistantFactureAchat.setTva(factureAchat.getTva());
-        persistantFactureAchat.setFournisseur(factureAchat.getFournisseur());
-         factureAchatServices.saveFactureAchat(persistantFactureAchat);
-        return persistantFactureAchat;
+    public FactureAchat addFactureAchat(@RequestBody @Validated FactureAchat factureAchat) {
+         factureAchatServices.saveFactureAchat(factureAchat);
+        return factureAchat;
     }
 
     @DeleteMapping("/deleteFactureAchat/{id}")

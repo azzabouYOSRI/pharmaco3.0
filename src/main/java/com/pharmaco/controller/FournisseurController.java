@@ -20,16 +20,9 @@ public class FournisseurController {
     }
 
     @PostMapping(value = "/addFournisseur", consumes = "application/json")
-    public Fournisseur addFournisseur(@Validated @RequestBody FournisseurDTO fournisseur) {
-        Fournisseur persistantFournisseur = new Fournisseur();
-        persistantFournisseur.setNomFournisseur(fournisseur.getNomFournisseur());
-        persistantFournisseur.setAdresseFournisseur(fournisseur.getAdresseFournisseur());
-        persistantFournisseur.setTelFournisseur(fournisseur.getTelFournisseur());
-        persistantFournisseur.setEmailFournisseur(fournisseur.getEmailFournisseur());
-        persistantFournisseur.setUtilisateur(fournisseur.getUtilisateur());
-
-        fournisseurServices.addNewFournisseur(persistantFournisseur);
-        return  persistantFournisseur;
+    public Fournisseur addFournisseur(@Validated @RequestBody Fournisseur fournisseur) {
+        fournisseurServices.addNewFournisseur(fournisseur);
+        return  fournisseur;
     }
 
     @GetMapping("/getFournisseur/{id}")

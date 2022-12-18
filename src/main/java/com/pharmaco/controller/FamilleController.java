@@ -37,11 +37,9 @@ public class FamilleController {
     }
 
     @PostMapping("/add")
-    public Famille addFamille(@Validated @RequestBody FamilleDTO famille){
-        Famille persistantFamille = new Famille();
-        persistantFamille.setLibFamille(famille.getLibFamille());
-        familleServices.saveFamille(persistantFamille);
-        return persistantFamille;
+    public Famille addFamille(@Validated @RequestBody Famille famille){
+        familleServices.saveFamille(famille);
+        return famille;
     }
 
     @DeleteMapping("/delete/{id}")

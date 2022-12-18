@@ -35,18 +35,9 @@ public class ProductController {
 
     @PostMapping(value = "/add",
             consumes = "application/json")
-    public PharmaceuticProduct saveProduit(@RequestBody @Validated PharmaceuticProductDTO pharmaceuticProduct) {
-        PharmaceuticProduct persistantPharmaceuticProduct = new PharmaceuticProduct();
-        persistantPharmaceuticProduct.setLaboratoire(pharmaceuticProduct.getLaboratoire());
-        persistantPharmaceuticProduct.setCommandeProd(pharmaceuticProduct.getCommandeProd());
-        persistantPharmaceuticProduct.setFamille(pharmaceuticProduct.getFamille());
-        persistantPharmaceuticProduct.setPrixPrd(pharmaceuticProduct.getPrixPrd());
-        persistantPharmaceuticProduct.setDateAjoutPrd(pharmaceuticProduct.getDateAjoutPrd());
-        persistantPharmaceuticProduct.setDescriptionPrd(pharmaceuticProduct.getDescriptionPrd());
-        persistantPharmaceuticProduct.setLibPrd(pharmaceuticProduct.getLibPrd());
-        persistantPharmaceuticProduct.setPrixLivraison(pharmaceuticProduct.getPrixLivraison());
-        pharmaceuticProductServices.saveProduit(persistantPharmaceuticProduct);
-        return persistantPharmaceuticProduct;
+    public PharmaceuticProduct saveProduit(@RequestBody @Validated PharmaceuticProduct pharmaceuticProduct) {
+        pharmaceuticProductServices.saveProduit(pharmaceuticProduct);
+        return pharmaceuticProduct;
     }
 
     @GetMapping("/findProduitById/{id}")

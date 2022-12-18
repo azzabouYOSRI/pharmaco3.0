@@ -27,20 +27,9 @@ public class UtilisateurController {
     @PostMapping(
             value = "/addUser",
             consumes = "application/json")
-    public Utilisateur saveUser(@Validated @RequestBody UtilisateurDTO utilisateur) {
-
-            Utilisateur persistentUtilisateur = new Utilisateur();
-            persistentUtilisateur.setNomUtil(utilisateur.getNomUtil());
-            persistentUtilisateur.setPrenomUtil(utilisateur.getPrenomUtil());
-            persistentUtilisateur.setAdresseUtil(utilisateur.getAdresseUtil());
-            persistentUtilisateur.setEmailUtil(utilisateur.getEmailUtil());
-            persistentUtilisateur.setCodePostalUtil(utilisateur.getCodePostalUtil());
-            persistentUtilisateur.setTelUtil(utilisateur.getTelUtil());
-            persistentUtilisateur.setPriveldege(utilisateur.getPriveldege());
-            persistentUtilisateur.setPasswordUtil(utilisateur.getPasswordUtil());
-            persistentUtilisateur.setDateNaisaanceUtil(utilisateur.getDateNaisaanceUtil());
-        userServices.saveUser(persistentUtilisateur);
-        return persistentUtilisateur;
+    public Utilisateur saveUser(@Validated @RequestBody Utilisateur utilisateur) {
+        userServices.saveUser(utilisateur);
+        return utilisateur;
     }
 
     @GetMapping("/getUser/{id}")
